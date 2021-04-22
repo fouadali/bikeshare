@@ -240,6 +240,25 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+
+def display_data(df):
+    """
+    Display raw data upon request by the user
+    """
+    cursor = 5
+    display = input("Would you like to display trip raw data? [Y/N]: ").lower()
+    if display == 'y':
+        print(df.iloc[0:cursor])
+        while True:
+            display = input("Would you like to display 5 more rows? [Y/N]: ").lower()
+            if display == 'y':
+                print(df.iloc[cursor: cursor+5])
+                cursor += 5
+            else:
+                break
+    print('-' * 50)
+
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -250,6 +269,7 @@ def main():
         trip_duration_stats(df)
         user_stats(df)
 
+        display_data(df)
         restart = input('\nWould you like to restart? [Y/N]\n').lower()
         if restart != 'y':
             break
